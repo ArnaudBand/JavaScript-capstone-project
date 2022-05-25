@@ -10,11 +10,7 @@ const displayData = async (results) => {
   let displayUI = '';
   // eslint-disable-next-line array-callback-return
   results.forEach((result, index) => {
-    const likeObj = arrLike.find((element) => {
-      console.log(element, result);
-    });
-   //element.item_id === index);
-    console.log('i', likeObj);
+    const likeObj = arrLike.find((element) => element.item_id === result.idCategory);
     displayUI = `
         <div class="item">
           <div class="item_images">
@@ -24,7 +20,7 @@ const displayData = async (results) => {
               <p class="name-meal">${result.strCategory}</p>
               <div class="like_div">
                     <button class="like_btn" type="button">❤</button>
-                    <p class="num_like">5 likes</p>
+                    <p class="num_like">${likeObj ? likeObj.likes : 0} likes</p>
               </div>
           </div>
           <div class="btn_rev_com">
@@ -39,11 +35,14 @@ const displayData = async (results) => {
 
     container.insertAdjacentHTML('beforeend', displayUI);
     const itemElement = container.lastChild;
-    console.log(itemElement);
     const commentBtn = itemElement.querySelector('.commentBtn');
     // eslint-disable-next-line no-unused-vars
     commentBtn.addEventListener('click', (event) => {
       showPopup(results);
+    });
+    const likeBtn = itemElement.querySelector('.like_btn');
+    likeBtn.addEventListener('click', () => {
+      addLike(result.idCategory);
     });
   });
 };
