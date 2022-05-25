@@ -22,10 +22,10 @@ const addComment = async (itemId, username, comment) => {
   return result;
 };
 
-const getComments = async (itemId) => {
+const getComments = async () => {
   let result;
   try {
-    const res = await fetch(`${baseUrl}apps/${appId}/comments/?item_id=${itemId}`);
+    const res = await fetch(`${baseUrl}apps/${appId}/comments/`);
     result = await res.json();
   } catch (err) {
     return err;

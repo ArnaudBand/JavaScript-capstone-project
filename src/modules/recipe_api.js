@@ -1,13 +1,20 @@
+/* eslint-disable array-callback-return */
 import { showPopup } from './popup.js';
+import { addLike, getLikes } from './involved.api.js';
 
 const url1 = 'https://www.themealdb.com/api/json/v1/1/categories.php';
 
-const displayData = (results) => {
+const displayData = async (results) => {
+  const arrLike = await getLikes();
   const container = document.querySelector('.items');
   let displayUI = '';
   // eslint-disable-next-line array-callback-return
   results.forEach((result, index) => {
-    console.log(33, 55, container);
+    const likeObj = arrLike.find((element) => {
+      console.log(element, result);
+    });
+   //element.item_id === index);
+    console.log('i', likeObj);
     displayUI = `
         <div class="item">
           <div class="item_images">
